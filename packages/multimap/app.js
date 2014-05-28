@@ -20,7 +20,7 @@ Multimap.register(function(app, auth, database) {
     //We are adding a link to the main menu for all authenticated users
     Multimap.menus.add({
         title: 'multimap',
-        link: 'multimap example page',
+        link: 'multimap',
         roles: ['authenticated'],
         menu: 'main'
     });
