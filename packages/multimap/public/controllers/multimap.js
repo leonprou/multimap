@@ -6,5 +6,13 @@ angular.module('mean.multimap').controller('MultimapController', ['$scope', 'Glo
         $scope.package = {
             name: 'multimap'
         };
+
+        $scope.map = {
+		    center: {
+	        latitude: 45,
+	        longitude: -73
+		    },
+	    zoom: 8
+		};
     }
 ]);

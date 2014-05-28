@@ -13,13 +13,11 @@ module.exports = function(app) {
             defaultMenu.forEach(function(item, index) {
                 defaultMenu[index] = JSON.parse(item);
             });
-
             var items = mean.menus.get({
                 roles: roles,
                 menu: menu,
                 defaultMenu: defaultMenu
             });
-
             res.jsonp(items);
         });
 

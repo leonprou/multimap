@@ -7,6 +7,7 @@ var Module = require('meanio').Module;
 
 var Multimap = new Module('multimap');
 
+Multimap.angularDependencies(['google-maps']);
 /*
  * All MEAN packages require registration
  * Dependency injection is used to define required modules
@@ -18,7 +19,7 @@ Multimap.register(function(app, auth, database) {
 
     //We are adding a link to the main menu for all authenticated users
     Multimap.menus.add({
-        title: 'multimap example page',
+        title: 'multimap',
         link: 'multimap example page',
         roles: ['authenticated'],
         menu: 'main'
@@ -45,6 +46,7 @@ Multimap.register(function(app, auth, database) {
         //you now have the settings object
     });
     */
+    Multimap.aggregateAsset('css', 'multimap.css');
 
     return Multimap;
 });

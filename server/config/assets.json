@@ -14,6 +14,9 @@
             "public/system/lib/jquery/dist/jquery.min.js",
             "public/system/lib/angular-bootstrap/ui-bootstrap.js",
             "public/system/lib/angular-bootstrap/ui-bootstrap-tpls.js",
+            "https://maps.googleapis.com/maps/api/js?key=AIzaSyC0BB-mnnlFimPWZJesXCQPLGjIl6_8Ewk&sensor=false",
+            "public/system/lib/underscore/underscore.js",
+            "public/system/lib/angular-google-maps/dist/angular-google-maps.js",
             "public/init.js",
             "public/*/*.js",
             "public/*/{controllers,routes,services}/*.js"
