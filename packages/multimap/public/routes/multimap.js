@@ -3,7 +3,7 @@
 angular.module('mean.multimap').config(['$stateProvider',
     function($stateProvider) {
         $stateProvider.state('multimap', {
-            url: '/',
+            url: '/multimap/example',
             templateUrl: 'multimap/views/index.html'
         });
     }
