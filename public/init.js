@@ -16,8 +16,11 @@ for (var index in window.modules) {
     packageModules.push(window.modules[index].module);
 }
 
+// Defining multimap module
+angular.module('multimap', ['google-maps']);
+
 // Default modules
-var modules = ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'mean.system', 'mean.auth'];
+var modules = ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'mean.system', 'mean.auth', 'multimap'];
 modules = modules.concat(packageModules);
 
 // Combined modules

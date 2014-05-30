@@ -1,6 +1,21 @@
-<section data-ng-controller="IndexController">
-    <h1 mean-token="'home-default'">This is the multimap home view</h1>
 
-	<google-map center="map.center" zoom="map.zoom"></google-map>
+<section data-ng-controller="IndexController">
+    <h1 mean-token="'home-default'">Multimap home view, login to continue</h1>
 
 </section>
+
+
+    <div ng-controller="MultimapController">
+		<button ng-click="toggleStreetView()"> street view </button>
+		
+		<google-map  center="mapOptions.center" zoom="mapOptions.zoom"
+		draggable=true control="controller">
+
+		<marker coords="{
+			latitude: 45,
+			longitude: -73,
+		}"></marker>
+		</google-map>
+
+	</div>
+
