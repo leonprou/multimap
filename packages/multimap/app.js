@@ -21,7 +21,6 @@ Multimap.register(function(app, auth, database) {
     Multimap.menus.add({
         title: 'multimap',
         link: 'multimap',
-        roles: ['authenticated'],
         menu: 'main'
     });
 
