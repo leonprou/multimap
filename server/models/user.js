@@ -47,6 +47,10 @@ var UserSchema = new Schema({
         type: String,
         default: 'local'
     },
+    // coordinates: {
+    //     type: String,
+    //     required: false,
+    // },
     salt: String,
     facebook: {},
     twitter: {},

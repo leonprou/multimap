@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-    db: 'mongodb://localhost/mean-dev',
+    db: 'mongodb://localhost/multimap-dev',
     app: {
-        name: 'MEAN - FullStack JS - Development'
+        name: 'Multimap on MEAN - Development'
     },
     facebook: {
         clientID: '1521712058044667',
