@@ -1,21 +1,18 @@
 
 <section data-ng-controller="IndexController">
-    <h1 mean-token="'home-default'">Multimap home view, login to continue</h1>
+    <h1 mean-token="'home-default'">Multimap home view</h1>
 
 </section>
 
 
-    <div ng-controller="MultimapController">
-		<button ng-click="toggleStreetView()"> street view </button>
-		
-		<google-map  center="mapOptions.center" zoom="mapOptions.zoom"
+<div ng-controller="MultimapController">
+	<button ng-click="toggleStreetView()"> street view </button>
+
+	<google-map  center="mapOptions.center" zoom="mapOptions.zoom"
 		draggable=true control="controller">
 
-		<marker coords="{
-			latitude: 45,
-			longitude: -73,
-		}"></marker>
-		</google-map>
+		<marker coords="mapOptions.center"></marker>
+	</google-map>
 
-	</div>
+</div>
 

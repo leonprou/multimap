@@ -1,3 +1,5 @@
+/* global google */
+
 'use strict';
 
 angular.module('multimap').controller('MultimapController', ['$scope', 'Global',
@@ -6,8 +8,8 @@ angular.module('multimap').controller('MultimapController', ['$scope', 'Global',
 
 	 $scope.mapOptions = {
 			center: {
-			latitude: 45,
-			longitude: -73,
+			latitude: 40.729884,
+			longitude: -73.990988
 		},
 			zoom: 8
 			// streetViewControl: false
@@ -17,18 +19,23 @@ angular.module('multimap').controller('MultimapController', ['$scope', 'Global',
 
 	var map;
 	var panorama;
+	var astorPlace = new google.maps.LatLng($scope.mapOptions.center.latitude,
+	 $scope.mapOptions.center.longitude);
 	
   $scope.$watch('$viewContentLoaded', function()
   {
-    map = $scope.controller.getGMap();
-    panorama = map.getStreetView();
-    panorama.setPosition($scope.mapOptions.center);
-		  panorama.setPov(({
-	    heading: 265,
-	    pitch: 0
-	  }));
+  	if (map === undefined) {
+	    map = $scope.controller.getGMap();
+	    panorama = map.getStreetView();
+	    panorama.setPosition(astorPlace);
 
+      google.maps.event.addListener(panorama, 'position_changed', function() {
+      	if (panorama.getVisible() == true)
+		      alert(panorama.getPosition());
+		  });
+		}
   });
+
 
 $scope.toggleStreetView = function() {
   var toggle = panorama.getVisible();
