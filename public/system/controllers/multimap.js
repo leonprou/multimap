@@ -19,7 +19,7 @@ angular.module('multimap').controller('MultimapController', ['$scope', 'Global',
 
 	var map;
 	var panorama;
-	var astorPlace = new google.maps.LatLng($scope.mapOptions.center.latitude,
+	$scope.myCoords = new google.maps.LatLng($scope.mapOptions.center.latitude,
 	 $scope.mapOptions.center.longitude);
 	
   $scope.$watch('$viewContentLoaded', function()
@@ -27,14 +27,16 @@ angular.module('multimap').controller('MultimapController', ['$scope', 'Global',
   	if (map === undefined) {
 	    map = $scope.controller.getGMap();
 	    panorama = map.getStreetView();
-	    panorama.setPosition(astorPlace);
+	    panorama.setPosition($scope.myCoords);
 
       google.maps.event.addListener(panorama, 'position_changed', function() {
-      	if (panorama.getVisible() == true)
-		      alert(panorama.getPosition());
+      	if (panorama.getVisible() === true) {
+      		//write to DB here
+		      $scope.myCoords = panorama.getPosition();
+    		}
 		  });
 		}
-  });
+	});
 
 
 $scope.toggleStreetView = function() {
