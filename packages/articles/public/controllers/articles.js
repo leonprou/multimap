@@ -45,7 +45,7 @@ angular.module('mean').controller('ArticlesController', ['$scope', '$stateParams
             }
             article.updated.push(new Date().getTime());
 
-            article.$update(function() {
+            article.$save(function() {
                 $location.path('articles/' + article._id);
             });
         };

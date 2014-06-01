@@ -33,6 +33,8 @@ module.exports = function(app, passport) {
                 redirect: (req.user.roles.indexOf('admin') !== -1) ? req.get('referer') : false
             });
         });
+    app.route('/users/:userId')
+        .put(users.update);
 
     // Setting the facebook oauth routes
     app.route('/auth/facebook')

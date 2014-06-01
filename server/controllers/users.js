@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    User = mongoose.model('User'),
+    _ = require('lodash');
 
 /**
  * Auth callback
@@ -79,6 +80,36 @@ exports.create = function(req, res, next) {
         res.status(200);
     });
 };
+
+/**
+* Update User
+*/
+exports.create = function(req, res, next) {
+    var user = new User(req.body);
+
+    user.provider = 'local';
+
+
+};
+
+/**
+ * Update User
+ */
+exports.update = function(req, res) {
+    var user = req.user;
+
+    user = _.extend(user, req.body);
+
+    user.save(function(err) {
+        if (err) {
+            console.log('error');
+            return res.send('error');
+        } else {
+            res.jsonp(user);
+        }
+    });
+};
+
 /**
  * Send User
  */

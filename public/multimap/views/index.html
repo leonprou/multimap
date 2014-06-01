@@ -1,0 +1,11 @@
+<div ng-controller="MultimapController">
+	<button ng-click="toggleStreetView()"> street view </button>
+
+	<google-map  center="mapOptions.center" zoom="mapOptions.zoom"
+		draggable=true control="controller">
+
+		<marker coords="{latitude: myCoords.lat(), longitude: myCoords.lng()}"></marker>
+	</google-map>
+
+
+</div>

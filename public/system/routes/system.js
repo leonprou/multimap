@@ -8,10 +8,10 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
 
             // states for my app
             $stateProvider              
-                .state('home', {
-                    url: '/',
-                    templateUrl: 'public/system/views/index.html'
-                })
+                // .state('home', {
+                //     url: '/',
+                //     templateUrl: 'public/multimap/views/index.html'
+                // })
                 .state('auth', {
                     templateUrl: 'public/auth/views/index.html'
                 });
