@@ -47,9 +47,15 @@ var UserSchema = new Schema({
         type: String,
         default: 'local'
     },
-    coordinates: {
-        type: String,
-        required: false,
+    location: {
+        latitude: {
+            type: Number,
+            required: false,
+        },
+        longitude: {
+            type: Number,
+            required: false,
+        }
     },
     salt: String,
     facebook: {},

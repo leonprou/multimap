@@ -7,44 +7,46 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 		$scope.global = Global;
 		$scope.users = Users;
 
-		$scope.mapOptions = {
-			center: {
+		var defaultLoc = {
 				latitude: 40.729884,
 				longitude: -73.990988
-			},
-			zoom: 8
-			// streetViewControl: false
 		};
 
+		$scope.user = $scope.global.user;
+		$scope.user.location = $scope.user.location || defaultLoc;
+		$scope.mapOptions = {
+			center: $scope.user.location,
+			zoom: 8
+		};
+
+		$scope.markers = [];
 		$scope.controller = {};
 
 		var map;
 		var panorama;
-		var user = $scope.global.user;
-		$scope.myCoords = new google.maps.LatLng($scope.mapOptions.center.latitude,
-			$scope.mapOptions.center.longitude);
+
 
 		$scope.$watch('$viewContentLoaded', function() {
 			if (map === undefined) {
 				map = $scope.controller.getGMap();
 				panorama = map.getStreetView();
-				panorama.setPosition($scope.myCoords);
+				panorama.setPosition({lat: $scope.user.location.latitude, lng: $scope.user.location.longitude});
 
 				google.maps.event.addListener(panorama, 'position_changed', function() {
 					if (panorama.getVisible() === true) {
-						user.coordinates = 'my coords';
+						$scope.user.location.latitude = panorama.getPosition().lat();
+						$scope.user.location.longitude = panorama.getPosition().lng();
 						$scope.update();
-						$scope.myCoords = panorama.getPosition();
 					}
 				});
 			}
 		});
 
 		$scope.update = function() {
-			var servUser = new Users(user);
+			var servUser = new Users($scope.user);
 
 			servUser.$update(function() {
-				$location.path('users/' + user._id);
+				$location.path('users/' + $scope.user._id);
 			});
 		};
 
