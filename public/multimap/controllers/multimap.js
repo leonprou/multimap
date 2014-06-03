@@ -5,8 +5,7 @@
 angular.module('multimap').controller('MultimapController', ['$scope', '$rootScope', '$location', 'Global', 'Users',
 	function($scope, $rootScope, $location, Global, Users) {
 		$scope.global = Global;
-		$scope.users = Users;
-
+		
 		var defaultLoc = {
 				latitude: 40.729884,
 				longitude: -73.990988
@@ -15,11 +14,14 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 		$scope.user = $scope.global.user;
 		$scope.user.location = $scope.user.location || defaultLoc;
 		$scope.mapOptions = {
-			center: $scope.user.location,
-			zoom: 8
+			center: {
+				latitude: $scope.user.location.latitude,
+				longitude: $scope.user.location.longitude 
+			},
+			zoom: 14
 		};
 
-		$scope.markers = [];
+		$scope.users = [];
 		$scope.controller = {};
 
 		var map;
@@ -30,7 +32,7 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 			if (map === undefined) {
 				map = $scope.controller.getGMap();
 				panorama = map.getStreetView();
-				panorama.setPosition({lat: $scope.user.location.latitude, lng: $scope.user.location.longitude});
+				// panorama.setPosition({lat: $scope.user.location.latitude, lng: $scope.user.location.longitude});
 
 				google.maps.event.addListener(panorama, 'position_changed', function() {
 					if (panorama.getVisible() === true) {
@@ -43,10 +45,10 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 		});
 
 		$scope.update = function() {
-			var servUser = new Users($scope.user);
+			// var servUser = new Users($scope.user);
 
-			servUser.$update(function() {
-				$location.path('users/' + $scope.user._id);
+			Users.update({ userId: $scope.user._id}, $scope.user, function(users) {
+				$scope.users = users;
 			});
 		};
 
