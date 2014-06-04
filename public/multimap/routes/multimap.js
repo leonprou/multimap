@@ -7,11 +7,11 @@ angular.module('multimap').config(['$stateProvider', '$urlRouterProvider',
             $urlRouterProvider.otherwise('/');
 
             // states for my multimap
-            $stateProvider              
-                .state('home', {
-                    url: '/',
-                    templateUrl: 'public/multimap/views/index.html'
-            });
+            // $stateProvider              
+            //     .state('home', {
+            //         url: '/',
+            //         templateUrl: 'public/multimap/views/index.html'
+            // });
         }
     ])
     .config(['$locationProvider',
