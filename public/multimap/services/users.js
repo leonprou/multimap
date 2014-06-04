@@ -5,7 +5,11 @@ angular.module('multimap').factory('Users', ['$resource',
 	function($resource) {
 		return $resource('users/:userId', null, {
 			update: {
-				method: 'PUT',
+				method: 'PUT'
+				// isArray: true
+			},
+			near: {
+				method: 'GET',
 				isArray: true
 			}
 		});

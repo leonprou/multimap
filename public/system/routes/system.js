@@ -1,8 +1,8 @@
 'use strict';
 
 //Setting up route
-angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider', '$injector',
-    function($stateProvider, $urlRouterProvider, $injector) {
+angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
         // For unmatched routes:
         $urlRouterProvider.otherwise('/');
 
@@ -36,17 +36,3 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider', '$
             $locationProvider.hashPrefix('!');
         }
     ]);
-
-
-
-// onEnter: function() {
-//     // var GlobalProvider = $injector.get('GlobalProvider');
-//     // var Global = $injector.invoke(GlobalProvider.$get[0]);
-//     // console.log(Global.user);
-//     // var $state = $injector.get('$state');
-//     // if (Global.authenticated) {
-//     //     $state.go('home.user');
-//     // } else {
-//     //     $state.go('home.anon');
-//     // }
-// }

@@ -5,27 +5,27 @@ var users = require('../controllers/users');
 
 module.exports = function(app, passport) {
 
-    app.route('/logout')
-        .get(users.signout);
-    app.route('/users/me')
-        .get(users.me);
+    app.get('/logout',
+        users.signout);
+
+    app.get('/users/me',
+        users.me);
 
     // Setting up the users api
-    app.route('/register')
-        .post(users.create);
+    app.post('/register', users.create);
 
     // Setting up the userId param
     app.param('userId', users.user);
 
     // AngularJS route to check for authentication
-    app.route('/loggedin')
-        .get(function(req, res) {
+    app.get('/loggedin',
+        function(req, res) {
             res.send(req.isAuthenticated() ? req.user : '0');
         });
 
     // Setting the local strategy route
-    app.route('/login')
-        .post(passport.authenticate('local', {
+    app.post('/login',
+        passport.authenticate('local', {
             failureFlash: true
         }), function(req, res) {
             res.send({
@@ -33,46 +33,50 @@ module.exports = function(app, passport) {
                 redirect: (req.user.roles.indexOf('admin') !== -1) ? req.get('referer') : false
             });
         });
-    app.route('/users/:userId')
-        .put(users.update);
+
+    app.put('/users/:userId',
+        users.update);
+
+    app.get('/users/:userId',
+        users.nearUsers);
 
     // Setting the facebook oauth routes
-    app.route('/auth/facebook')
-        .get(passport.authenticate('facebook', {
+    app.get('/auth/facebook',
+        passport.authenticate('facebook', {
             scope: ['email', 'user_about_me'],
             failureRedirect: '#!/login'
         }), users.signin);
 
-    app.route('/auth/facebook/callback')
-        .get(passport.authenticate('facebook', {
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
             failureRedirect: '#!/login'
         }), users.authCallback);
 
     // Setting the github oauth routes
-    app.route('/auth/github')
-        .get(passport.authenticate('github', {
+    app.get('/auth/github',
+        passport.authenticate('github', {
             failureRedirect: '#!/login'
         }), users.signin);
 
-    app.route('/auth/github/callback')
-        .get(passport.authenticate('github', {
+    app.get('/auth/github/callback',
+        passport.authenticate('github', {
             failureRedirect: '#!/login'
         }), users.authCallback);
 
     // Setting the twitter oauth routes
-    app.route('/auth/twitter')
-        .get(passport.authenticate('twitter', {
+    app.get('/auth/twitter',
+        passport.authenticate('twitter', {
             failureRedirect: '#!/login'
         }), users.signin);
 
-    app.route('/auth/twitter/callback')
-        .get(passport.authenticate('twitter', {
+    app.get('/auth/twitter/callback',
+        passport.authenticate('twitter', {
             failureRedirect: '#!/login'
         }), users.authCallback);
 
     // Setting the google oauth routes
-    app.route('/auth/google')
-        .get(passport.authenticate('google', {
+    app.get('/auth/google',
+        passport.authenticate('google', {
             failureRedirect: '#!/login',
             scope: [
                 'https://www.googleapis.com/auth/userinfo.profile',
@@ -80,20 +84,20 @@ module.exports = function(app, passport) {
             ]
         }), users.signin);
 
-    app.route('/auth/google/callback')
-        .get(passport.authenticate('google', {
+    app.get('/auth/google/callback',
+        passport.authenticate('google', {
             failureRedirect: '#!/login'
         }), users.authCallback);
 
     // Setting the linkedin oauth routes
-    app.route('/auth/linkedin')
-        .get(passport.authenticate('linkedin', {
+    app.get('/auth/linkedin',
+        passport.authenticate('linkedin', {
             failureRedirect: '#!/login',
             scope: ['r_emailaddress']
         }), users.signin);
 
-    app.route('/auth/linkedin/callback')
-        .get(passport.authenticate('linkedin', {
+    app.get('/auth/linkedin/callback',
+        passport.authenticate('linkedin', {
             failureRedirect: '#!/login'
         }), users.authCallback);
 

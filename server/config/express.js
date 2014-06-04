@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
+var express = require('express.io'),
     favicon = require('serve-favicon'),
     morgan = require('morgan'),
     compression = require('compression'),

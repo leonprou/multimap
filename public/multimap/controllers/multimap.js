@@ -1,6 +1,7 @@
 /* global google */
 
 'use strict';
+var io = io.connect();
 
 angular.module('multimap').controller('MultimapController', ['$scope', '$rootScope', '$location', 'Global', 'Users',
 	function($scope, $rootScope, $location, Global, Users) {
@@ -27,16 +28,18 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 			},
 			zoom: 14
 		};
-		
 
 
 
 		$scope.$watch('$viewContentLoaded', function() {
 			if (map === undefined) {
-				
+				Users.near({
+					userId: $scope.user._id
+				}, $scope.user, function(users) {
+					$scope.users = users;
+				});
 				map = $scope.controller.getGMap();
 				panorama = map.getStreetView();
-				// panorama.setPosition({lat: $scope.user.location.latitude, lng: $scope.user.location.longitude});
 
 				google.maps.event.addListener(panorama, 'position_changed', function() {
 					if (panorama.getVisible() === true) {
@@ -44,8 +47,12 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 						$scope.user.location.longitude = panorama.getPosition().lng();
 						Users.update({
 							userId: $scope.user._id
-						}, $scope.user, function(users) {
-							$scope.users = users;
+						}, $scope.user, function() {
+							$scope.users.forEach(function(elem) {
+								if (elem._id === $scope.user._id) {
+									elem.location = $scope.user.location;
+								}
+							});
 						});
 					}
 				});

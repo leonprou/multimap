@@ -1,6 +1,6 @@
 'use strict';
 
-var express = require('express'),
+var express = require('express.io'),
     appPath = process.cwd();
 
 var mean = require('meanio');
@@ -46,6 +46,7 @@ module.exports = function(passport, db) {
 
     // Express settings
     var app = express();
+    app.http().io();
     require(appPath + '/server/config/express')(app, passport, db);
 
     return app;

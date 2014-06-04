@@ -17,6 +17,7 @@
             "https://maps.googleapis.com/maps/api/js?key=AIzaSyC0BB-mnnlFimPWZJesXCQPLGjIl6_8Ewk&sensor=false",
             "public/system/lib/underscore/underscore.js",
             "public/system/lib/angular-google-maps/dist/angular-google-maps.js",
+            "public/system/lib/socket.io-client/socket.io.js",
             "public/init.js",
             "public/*/*.js",
             "public/*/{controllers,routes,services}/*.js"

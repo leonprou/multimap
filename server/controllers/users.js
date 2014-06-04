@@ -94,20 +94,34 @@ exports.update = function(req, res) {
             console.log('error');
             return res.send('error');
         } else {
+            res.send(200);
+            
+
+
             User.find({},
                 function(err, users) {
                     if (err) {
                         console.log('error');
                         return res.send('error');
                     } else {
-                        res.jsonp(users);
+                        req.io.broadcast('near', users);
                     }
                 });
 
         }
     });
+};
 
-
+exports.nearUsers = function(req, res) {
+    User.find({},
+        function(err, users) {
+            if (err) {
+                console.log('error');
+                return res.send('error');
+            } else {
+                res.jsonp(users);
+            }
+        });
 };
 
 /**

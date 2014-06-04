@@ -6,7 +6,11 @@
 
 		
 		<div ng-repeat="u in users">
-			<marker coords="u.location"></marker>
+			<marker
+				 coords="u.location"
+				 options="{title: u.username}">
+
+			</marker>
 		</div>
 	</google-map>
 </div>

@@ -5,7 +5,7 @@ module.exports = function(app) {
     // Home route
     var index = require('../controllers/index');
 
-    app.route('/')
-        .get(index.render);
+    //for unknown reason app.route doesn't work here
+    app.get('/', index.render);
 
 };
