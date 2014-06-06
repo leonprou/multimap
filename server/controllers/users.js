@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    User = mongoose.model('User'),
-    _ = require('lodash');
+    User = mongoose.model('User');
+// _ = require('lodash');
 
 /**
  * Auth callback
@@ -84,30 +84,47 @@ exports.create = function(req, res, next) {
 /**
  * Update User
  */
-exports.update = function(req, res) {
-    var user = req.user;
+exports.update = function(socket, user) {
 
-    user = _.extend(user, req.body);
-
-    user.save(function(err) {
+    User.findOneAndUpdate({
+        _id: user._id
+    }, {
+        $set: {
+            location: {
+                latitude: user.location.latitude,
+                longtitude: user.location.longtitude
+            }
+        }
+    }, function(err, user) {
         if (err) {
             console.log('error');
-            return res.send('error');
+            // return res.send('error');
         } else {
-            User.find({},
-                function(err, users) {
-                    if (err) {
-                        console.log('error');
-                        return res.send('error');
-                    } else {
-                        res.jsonp(users);
-                    }
-                });
-
+            console.log(user);
+            exports.near(socket);
         }
     });
+    //     user.save(function(err) {
+    //         if (err) {
+    //             console.log('error');
+    //             // return res.send('error');
+    //         }
+    //         else {
+    //             exports.near(socket);
+    //         }
+    //     });
+};
 
-
+exports.near = function(socket) {
+    User.find({},
+        function(err, users) {
+            if (err) {
+                console.log('error');
+                socket.emit('near users', 'error');
+            } else {
+                socket.emit('near users', users);
+            }
+        });
 };
 
 /**

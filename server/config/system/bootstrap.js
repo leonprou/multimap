@@ -4,7 +4,7 @@ var express = require('express'),
     appPath = process.cwd();
 
 var mean = require('meanio');
-mean.app('Mean Demo App', {});
+mean.app('Multimap App', {});
 
 module.exports = function(passport, db) {
 
@@ -47,6 +47,5 @@ module.exports = function(passport, db) {
     // Express settings
     var app = express();
     require(appPath + '/server/config/express')(app, passport, db);
-
     return app;
 };

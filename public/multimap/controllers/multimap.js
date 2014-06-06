@@ -1,9 +1,17 @@
 /* global google */
 
+
 'use strict';
 
-angular.module('multimap').controller('MultimapController', ['$scope', '$rootScope', '$location', 'Global', 'Users',
-	function($scope, $rootScope, $location, Global, Users) {
+// var io = io()
+
+// io.on('near users', function(msg) {
+// 	console.log('message: ' + msg);
+// });
+
+
+angular.module('multimap').controller('MultimapController', ['$scope', '$rootScope', '$location', 'Global', 'Users', 'Socket',
+	function($scope, $rootScope, $location, Global, Users, Socket) {
 
 		//private variables
 		var defaultLoc = {
@@ -27,13 +35,10 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 			},
 			zoom: 14
 		};
-		
-
-
 
 		$scope.$watch('$viewContentLoaded', function() {
 			if (map === undefined) {
-				
+
 				map = $scope.controller.getGMap();
 				panorama = map.getStreetView();
 				// panorama.setPosition({lat: $scope.user.location.latitude, lng: $scope.user.location.longitude});
@@ -42,23 +47,14 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 					if (panorama.getVisible() === true) {
 						$scope.user.location.latitude = panorama.getPosition().lat();
 						$scope.user.location.longitude = panorama.getPosition().lng();
-						Users.update({
-							userId: $scope.user._id
-						}, $scope.user, function(users) {
-							$scope.users = users;
-						});
+						Socket.emit('update', $scope.user);
 					}
 				});
 			}
 		});
 
-		$scope.toggleStreetView = function() {
-			var toggle = panorama.getVisible();
-			if (toggle === false) {
-				panorama.setVisible(true);
-			} else {
-				panorama.setVisible(false);
-			}
-		};
+		Socket.on('near users', function(users) {
+			$scope.users = users;
+		});
 	}
 ]);

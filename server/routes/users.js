@@ -3,6 +3,7 @@
 // User routes use users controller
 var users = require('../controllers/users');
 
+
 module.exports = function(app, passport) {
 
     app.route('/logout')
@@ -33,8 +34,28 @@ module.exports = function(app, passport) {
                 redirect: (req.user.roles.indexOf('admin') !== -1) ? req.get('referer') : false
             });
         });
+
     app.route('/users/:userId')
         .put(users.update);
+
+    app.io.on('connection', function(socket) {
+
+        console.log('a user connected');
+
+        // users.near(socket);
+
+        socket.on('disconnect', function() {
+            console.log('user disconnected');
+        });
+
+        socket.on('update', function(user) {
+            console.log('update');
+            users.update(app.io, user);
+            // users.near(app.io);
+        });
+    });
+
+
 
     // Setting the facebook oauth routes
     app.route('/auth/facebook')

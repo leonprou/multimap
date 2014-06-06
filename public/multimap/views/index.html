@@ -1,12 +1,18 @@
 <div ng-controller="MultimapController">
-<!-- 	<button ng-click="toggleStreetView()"> street view </button>	-->
 
+	{{message}}
 	<google-map  center="mapOptions.center" zoom="mapOptions.zoom"
 		draggable=true control="controller">
 
 		
 		<div ng-repeat="u in users">
-			<marker coords="u.location"></marker>
+			<marker
+				 coords="u.location"
+				 options="{title: u.username}">
+			</marker>
+
 		</div>
+
+
 	</google-map>
 </div>
