@@ -3,6 +3,7 @@
 // User routes use users controller
 var users = require('../controllers/users');
 
+
 module.exports = function(app, passport) {
 
     app.get('/logout',
@@ -34,11 +35,20 @@ module.exports = function(app, passport) {
             });
         });
 
-    app.put('/users/:userId',
-        users.update);
+    app.route('/users/:userId')
+        .put(users.update);
 
-    app.get('/users/:userId',
-        users.nearUsers);
+    app.io.on('connection', function(socket) {
+
+        console.log('a user connected');
+
+        socket.on('update', function(user) {
+            console.log('update');
+            users.update(app.io, user);
+        });
+    });
+
+
 
     // Setting the facebook oauth routes
     app.get('/auth/facebook',

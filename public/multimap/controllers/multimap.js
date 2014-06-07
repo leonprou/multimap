@@ -1,10 +1,18 @@
 /* global google */
 
+
 'use strict';
 var io = io.connect();
 
-angular.module('multimap').controller('MultimapController', ['$scope', '$rootScope', '$location', 'Global', 'Users',
-	function($scope, $rootScope, $location, Global, Users) {
+// var io = io()
+
+// io.on('near users', function(msg) {
+// 	console.log('message: ' + msg);
+// });
+
+
+angular.module('multimap').controller('MultimapController', ['$scope', '$rootScope', '$location', 'Global', 'Users', 'Socket',
+	function($scope, $rootScope, $location, Global, Users, Socket) {
 
 		//private variables
 		var defaultLoc = {
@@ -29,43 +37,26 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 			zoom: 14
 		};
 
-
-
 		$scope.$watch('$viewContentLoaded', function() {
 			if (map === undefined) {
-				Users.near({
-					userId: $scope.user._id
-				}, $scope.user, function(users) {
-					$scope.users = users;
-				});
+
 				map = $scope.controller.getGMap();
 				panorama = map.getStreetView();
+				Socket.emit('update', $scope.user);
+				// panorama.setPosition({lat: $scope.user.location.latitude, lng: $scope.user.location.longitude});
 
 				google.maps.event.addListener(panorama, 'position_changed', function() {
 					if (panorama.getVisible() === true) {
 						$scope.user.location.latitude = panorama.getPosition().lat();
 						$scope.user.location.longitude = panorama.getPosition().lng();
-						Users.update({
-							userId: $scope.user._id
-						}, $scope.user, function() {
-							$scope.users.forEach(function(elem) {
-								if (elem._id === $scope.user._id) {
-									elem.location = $scope.user.location;
-								}
-							});
-						});
+						Socket.emit('update', $scope.user);
 					}
 				});
 			}
 		});
 
-		$scope.toggleStreetView = function() {
-			var toggle = panorama.getVisible();
-			if (toggle === false) {
-				panorama.setVisible(true);
-			} else {
-				panorama.setVisible(false);
-			}
-		};
+		Socket.on('near users', function(users) {
+			$scope.users = users;
+		});
 	}
 ]);

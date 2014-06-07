@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    User = mongoose.model('User'),
-    _ = require('lodash');
+    User = mongoose.model('User');
+// _ = require('lodash');
 
 /**
  * Auth callback
@@ -84,42 +84,36 @@ exports.create = function(req, res, next) {
 /**
  * Update User
  */
-exports.update = function(req, res) {
-    var user = req.user;
+exports.update = function(socket, user) {
 
-    user = _.extend(user, req.body);
-
-    user.save(function(err) {
+    User.findOneAndUpdate({
+        _id: user._id
+    }, {
+        $set: {
+            location: {
+                latitude: user.location.latitude,
+                longitude: user.location.longitude
+            }
+        }
+    }, function(err, user) {
         if (err) {
             console.log('error');
-            return res.send('error');
+            // return res.send('error');
         } else {
-            res.send(200);
-            
-
-
-            User.find({},
-                function(err, users) {
-                    if (err) {
-                        console.log('error');
-                        return res.send('error');
-                    } else {
-                        req.io.broadcast('near', users);
-                    }
-                });
-
+            console.log(user);
+            exports.near(socket);
         }
     });
 };
 
-exports.nearUsers = function(req, res) {
+exports.near = function(socket) {
     User.find({},
         function(err, users) {
             if (err) {
                 console.log('error');
-                return res.send('error');
+                socket.emit('near users', 'error');
             } else {
-                res.jsonp(users);
+                socket.emit('near users', users);
             }
         });
 };

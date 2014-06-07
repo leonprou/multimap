@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    passport = require('passport'),
-    logger = require('mean-logger');
+	passport = require('passport'),
+	logger = require('mean-logger');
 
 /**
  * Main application entry file.
@@ -19,9 +19,13 @@ var db = mongoose.connect(config.db);
 // Bootstrap Models, Dependencies, Routes and the app as an express app
 var app = require('./server/config/system/bootstrap')(passport, db);
 
+//Bootstrap socket.io for bidirectional communication
+var http = require('http').Server(app);
+app.io = require('socket.io')(http);
+
 // Start the app by listening on <port>, optional hostname
-app.listen(config.port, config.hostname);
-console.log('Multimap started on port ' + config.port + ' (' + process.env.NODE_ENV + ')');
+http.listen(config.port, config.hostname);
+console.log('Multimap app started on port ' + config.port + ' (' + process.env.NODE_ENV + ')');
 
 // Initializing logger
 logger.init(app, passport, mongoose);

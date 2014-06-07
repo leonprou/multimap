@@ -4,11 +4,11 @@ module.exports = {
     db: 'mongodb://localhost/multimap-test',
     port: 3001,
     app: {
-        name: 'Multimap on MEAN - Test'
+        name: 'Multimap - Test'
     },
     facebook: {
-        clientID: 'APP_ID',
-        clientSecret: 'APP_SECRET',
+        clientID: '1521712058044667',
+        clientSecret: '477ef2300b557ea48ec3c5e7d7036fb6',
         callbackURL: 'http://localhost:3000/auth/facebook/callback'
     },
     twitter: {

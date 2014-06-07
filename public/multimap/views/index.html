@@ -1,6 +1,6 @@
 <div ng-controller="MultimapController">
-<!-- 	<button ng-click="toggleStreetView()"> street view </button>	-->
 
+	{{message}}
 	<google-map  center="mapOptions.center" zoom="mapOptions.zoom"
 		draggable=true control="controller">
 
@@ -9,8 +9,10 @@
 			<marker
 				 coords="u.location"
 				 options="{title: u.username}">
-
 			</marker>
+
 		</div>
+
+
 	</google-map>
 </div>
