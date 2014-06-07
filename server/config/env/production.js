@@ -6,8 +6,8 @@ module.exports = {
         name: 'Multimap - Production'
     },
     facebook: {
-        clientID: 'APP_ID',
-        clientSecret: 'APP_SECRET',
+        clientID: '1521712058044667',
+        clientSecret: '477ef2300b557ea48ec3c5e7d7036fb6',
         callbackURL: 'http://localhost:3000/auth/facebook/callback'
     },
     twitter: {
