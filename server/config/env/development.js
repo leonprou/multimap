@@ -3,7 +3,7 @@
 module.exports = {
     db: 'mongodb://localhost/multimap-dev',
     app: {
-        name: 'Multimap on MEAN - Development'
+        name: 'Multimap - Development'
     },
     facebook: {
         clientID: '1521712058044667',

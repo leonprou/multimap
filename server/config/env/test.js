@@ -4,7 +4,7 @@ module.exports = {
     db: 'mongodb://localhost/multimap-test',
     port: 3001,
     app: {
-        name: 'Multimap on MEAN - Test'
+        name: 'Multimap - Test'
     },
     facebook: {
         clientID: '1521712058044667',

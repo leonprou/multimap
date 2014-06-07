@@ -42,16 +42,9 @@ module.exports = function(app, passport) {
 
         console.log('a user connected');
 
-        // users.near(socket);
-
-        socket.on('disconnect', function() {
-            console.log('user disconnected');
-        });
-
         socket.on('update', function(user) {
             console.log('update');
             users.update(app.io, user);
-            // users.near(app.io);
         });
     });
 

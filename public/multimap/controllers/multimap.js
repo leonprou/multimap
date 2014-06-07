@@ -41,6 +41,7 @@ angular.module('multimap').controller('MultimapController', ['$scope', '$rootSco
 
 				map = $scope.controller.getGMap();
 				panorama = map.getStreetView();
+				Socket.emit('update', $scope.user);
 				// panorama.setPosition({lat: $scope.user.location.latitude, lng: $scope.user.location.longitude});
 
 				google.maps.event.addListener(panorama, 'position_changed', function() {

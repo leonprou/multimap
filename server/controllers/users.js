@@ -92,7 +92,7 @@ exports.update = function(socket, user) {
         $set: {
             location: {
                 latitude: user.location.latitude,
-                longtitude: user.location.longtitude
+                longitude: user.location.longitude
             }
         }
     }, function(err, user) {
@@ -104,15 +104,6 @@ exports.update = function(socket, user) {
             exports.near(socket);
         }
     });
-    //     user.save(function(err) {
-    //         if (err) {
-    //             console.log('error');
-    //             // return res.send('error');
-    //         }
-    //         else {
-    //             exports.near(socket);
-    //         }
-    //     });
 };
 
 exports.near = function(socket) {
