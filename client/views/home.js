@@ -1,6 +1,6 @@
 Template.home.helpers({
-  myAppVariable: function() {
-    return Session.get('myAppVariable');
+  isLoggedIn: function() {
+    return Meteor.user() != null;
   }
 });
 
