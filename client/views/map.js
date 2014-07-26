@@ -4,7 +4,6 @@ var panorama;
 var markers = [];
 
 function initialize() {
-	console.log(Meteor.user());
 	map = new google.maps.Map(document.getElementById("map-canvas"));
 
 	mapOptions = {
@@ -16,13 +15,11 @@ function initialize() {
 
 	};
 
-	// Deps.autorun(function() {
-	// 	Meteor.user() ? mapOptions.streetViewControl = true :
-	// 		mapOptions.streetViewControl = false;
-	// 	map.setOptions(mapOptions);
-	// });
-
-
+	Deps.autorun(function() {
+		Meteor.user() ? mapOptions.streetViewControl = true :
+			mapOptions.streetViewControl = false;
+		map.setOptions(mapOptions);
+	});
 
 	panorama = map.getStreetView();
 
@@ -47,7 +44,7 @@ function initialize() {
 		}
 		markers = [];
 
-
+		debugger;
 		var infowindow = new google.maps.InfoWindow();
 		for (var i = 0; i < locations.length; i++) {
 			var markerOptions = {
@@ -62,10 +59,9 @@ function initialize() {
 			var marker = new google.maps.Marker(markerOptions);
 			google.maps.event.addListener(marker, 'click', function(location) {
 				return function() {
-					// if (panorama.getVisible() == false)
-					// 	map.panTo(location.position);
-
-					infowindow.setContent(location.username);
+					debugger;
+					// infowindow.setContent(location.username);
+					infowindow.setContent(Template.marker_content.render().toHTML());
 					infowindow.open(panorama.getVisible() ? panorama : map, this);
 				};
 
@@ -76,3 +72,11 @@ function initialize() {
 	});
 }
 
+
+Template.map.rendered = initialize;
+
+Template.map.helpers({
+  isLoggedIn: function() {
+   		return Meteor.user() != null;
+  }
+});
