@@ -1,1 +1,1 @@
-Meteor.subscribe('locations');
+Meteor.subscribe('users');

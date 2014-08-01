@@ -37,20 +37,19 @@ function initialize() {
 
 	Deps.autorun(function() {
 
-		var locations = Locations.find().fetch();
+		var locations = Meteor.users().find({online: true}).fetch();
 
 		for (var i = 0; i < markers.length; i++) {
 			markers[i].setMap(null);
 		}
 		markers = [];
 
-		debugger;
 		var infowindow = new google.maps.InfoWindow();
 		for (var i = 0; i < locations.length; i++) {
 			var markerOptions = {
 					position: locations[i].position,
 					map: map,
-					title: locations[i].username
+					title: locations[i].username || locations[i].profile.name
 			};
 
 			if (locations[i].userId == Meteor.userId())
@@ -74,9 +73,3 @@ function initialize() {
 
 
 Template.map.rendered = initialize;
-
-Template.map.helpers({
-  isLoggedIn: function() {
-   		return Meteor.user() != null;
-  }
-});

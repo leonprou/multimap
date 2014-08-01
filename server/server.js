@@ -1,9 +1,9 @@
 Meteor.methods({
 	updateLocation: function(location) {
-		Locations.upsert({userId : location.userId}, location);
+		Users.update({userId : location.userId}, {$set: {position: location.position, online: true}});
 	},
 	removeLocation: function() {
-		Locations.remove({userId : Meteor.userId()});
+		Users.update({userId : location.userId}, {$set: {online: false}});
 	}
 });
 
