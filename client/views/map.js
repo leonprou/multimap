@@ -36,8 +36,8 @@ function initialize() {
 	});
 
 	Deps.autorun(function() {
-
-		var locations = Meteor.users().find({online: true}).fetch();
+		debugger;
+		var locations = Users.find({online: true}).fetch();
 
 		for (var i = 0; i < markers.length; i++) {
 			markers[i].setMap(null);
@@ -52,7 +52,7 @@ function initialize() {
 					title: locations[i].username || locations[i].profile.name
 			};
 
-			if (locations[i].userId == Meteor.userId())
+			if (locations[i]._id == Meteor.userId())
 				markerOptions.icon = '/images/markers/darkgreen_MarkerA.png';
 			
 			var marker = new google.maps.Marker(markerOptions);
@@ -60,7 +60,7 @@ function initialize() {
 				return function() {
 					debugger;
 					// infowindow.setContent(location.username);
-					infowindow.setContent(Template.marker_content.render().toHTML());
+					infowindow.setContent(Template.infowindow.__render().value);
 					infowindow.open(panorama.getVisible() ? panorama : map, this);
 				};
 
