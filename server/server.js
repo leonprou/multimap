@@ -3,7 +3,7 @@ Meteor.methods({
 		Users.update({_id : location.userId}, {$set: {position: location.position, online: true}});
 	},
 	removeLocation: function() {
-		Users.update({_id : location.userId}, {$set: {online: false}});
+		Users.update({_id : Meteor.userId()}, {$set: {online: false}});
 	}
 });
 
