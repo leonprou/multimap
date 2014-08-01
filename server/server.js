@@ -7,3 +7,6 @@ Meteor.methods({
 	}
 });
 
+Accounts.onLogin(function(attemptInfo) {
+	Users.update({_id: attemptInfo.user._id}, {$set: {online: true}});
+});
