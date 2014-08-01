@@ -24,19 +24,14 @@ function initialize() {
 	panorama = map.getStreetView();
 
 	google.maps.event.addListener(panorama, 'position_changed', function() {
-		var userLocation = {
-			position: {
-				lat: panorama.getPosition().lat(),
-				lng: panorama.getPosition().lng()
-			},
-			userId: Meteor.userId(),
-			username: Meteor.user().username || Meteor.user().profile.name
-		};
-		Meteor.call('updateLocation', userLocation);
+		var positon = {
+			lat: panorama.getPosition().lat(),
+			lng: panorama.getPosition().lng()
+		}
+		Meteor.call('updateLocation', positon);
 	});
 
 	Deps.autorun(function() {
-		debugger;
 		var locations = Users.find({online: true}).fetch();
 
 		for (var i = 0; i < markers.length; i++) {
@@ -56,11 +51,15 @@ function initialize() {
 				markerOptions.icon = '/images/markers/darkgreen_MarkerA.png';
 			
 			var marker = new google.maps.Marker(markerOptions);
+			
 			google.maps.event.addListener(marker, 'click', function(location) {
 				return function() {
-					debugger;
-					// infowindow.setContent(location.username);
-					infowindow.setContent(Template.infowindow.__render().value);
+					
+					console.log(location);
+					var content = UI.renderWithData(Template.infowindow, location);
+					var wraper = $('<div></div').attr('id','infowindow').get(0);
+					UI.insert(content, wraper);
+					infowindow.setContent(wraper);
 					infowindow.open(panorama.getVisible() ? panorama : map, this);
 				};
 

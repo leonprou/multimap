@@ -1,0 +1,11 @@
+<template name="infowindow">
+	<div>
+		<strong>{{profile.name}}</strong>
+	</div>
+	{{#if isLoggedUser}}
+		<button onclick="streeView()">street view</button>
+	{{else}}
+		<button onclick="panTo()">center</button>
+		<button onclick="sendMessage()">message</button>
+	{{/if}}
+</template>
