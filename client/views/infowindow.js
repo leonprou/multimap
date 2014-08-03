@@ -1,15 +1,16 @@
 Template.infowindow.helpers({
-	username: function() {
-		return Meteor.user().profile.name;
-	},
-	panTo: function() {
-		alert('panTo');
-	},
 	isLoggedUser: function() {
-		debugger;
 		return this.profile.name === Meteor.user().profile.name;
-	},
-	user: function() {
-		return Meteor.user();
 	}
+});
+
+Template.infowindow.events({
+	'click #infowindow-center': function(event) {
+		gmap.map.panTo(this.position);
+	},
+	'click #infowindow-streetView': function(event) {
+		var panorama = gmap.map.getStreetView();
+		panorama.setPosition(this.position);
+		panorama.setVisible(true)
+	},
 });

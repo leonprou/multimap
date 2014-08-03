@@ -3,9 +3,10 @@
 		<strong>{{profile.name}}</strong>
 	</div>
 	{{#if isLoggedUser}}
-		<button onclick="streeView()">street view</button>
+		<button id="infowindow-streetView">street view</button>
+		<button id="infowindow-center">center</button>
 	{{else}}
-		<button onclick="panTo()">center</button>
-		<button onclick="sendMessage()">message</button>
+		<button id="infowindow-center">center</button>
+		<button id="infowindow-message">center</button>
 	{{/if}}
 </template>

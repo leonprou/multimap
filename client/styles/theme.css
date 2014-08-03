@@ -10,9 +10,5 @@ body {
 }
 
 #map-canvas {
-	height: 100% 
-}
-
-.disabledMap {
-	height : 500px !important;
+	height: 97% 
 }
