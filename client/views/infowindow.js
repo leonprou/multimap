@@ -1,6 +1,7 @@
 Template.infowindow.helpers({
 	isLoggedUser: function() {
-		return this.profile.name === Meteor.user().profile.name;
+		debugger;
+		return this._id === Meteor.userId();
 	}
 });
 
@@ -14,8 +15,18 @@ Template.infowindow.events({
 		panorama.setVisible(true)
 	},
 	'click #infowindow-message': function(event) {
-		var message = prompt("Enter the message");
-		if (message)
-			Chat.emit(this._id, message);
+		var self = this;
+		vex.dialog.prompt({
+			message: 'Write your message',
+			placeholder: 'A friendly greeting',
+			callback: function(text) {
+				if (text !== false) {
+					Chat.emit(self._id, {
+						profile: Meteor.user().profile,
+						text: text
+					});
+				}
+			}
+		});
 	}
 });

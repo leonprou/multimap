@@ -3,8 +3,8 @@ var Gmap = function() {
 	var self = this,
 		markers = [],
 		mapOptions = {
-			center: new google.maps.LatLng(-34.397, 150.644),
-			zoom: 8,
+			center: new google.maps.LatLng(32.0833, 34.8000),
+			zoom: 15,
 			zoomControl: false,
 			panControl: false,
 			streetViewControl: false

@@ -16,5 +16,6 @@ UI.registerHelper('username', function() {
 });
 
 UI.body.rendered = function() {
+	vex.defaultOptions.className = 'vex-theme-default';
 	gmap = new Gmap();
 };
