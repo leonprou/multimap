@@ -13,4 +13,9 @@ Template.infowindow.events({
 		panorama.setPosition(this.position);
 		panorama.setVisible(true)
 	},
+	'click #infowindow-message': function(event) {
+		var message = prompt("Enter the message");
+		if (message)
+			Chat.emit(this._id, message);
+	}
 });

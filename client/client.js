@@ -14,3 +14,7 @@ Accounts.ui.config({
 UI.registerHelper('username', function() {
 	return Meteor.user().profile.name;
 });
+
+UI.body.rendered = function() {
+	gmap = new Gmap();
+};

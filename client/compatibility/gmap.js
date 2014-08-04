@@ -66,3 +66,10 @@ var Gmap = function() {
 		});
 	});
 }
+Gmap.prototype.panTo = function(arg) {
+	gmap.map.panTo(this.position);
+};
+
+Gmap.prototype.streetView = function() {
+	alert('street View');
+};
