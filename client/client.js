@@ -1,5 +1,4 @@
 /*global Gmap*/
-'use strict';
 
 if (Meteor.isClient) {
 	var _logout = Meteor.logout;

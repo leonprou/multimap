@@ -1,4 +1,3 @@
-'use strict';
 /*global google:false*/
 
 var Gmap = function() {
