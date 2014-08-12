@@ -28,16 +28,15 @@ var Gmap = function() {
 
 	Deps.autorun(function() {
 		mapOptions.streetViewControl = !!Meteor.user();
-		// Meteor.user() !== null ? mapOptions.streetViewControl = true :
-		// 	mapOptions.streetViewControl = false;
 		self.map.setOptions(mapOptions);
 	});
 
 	Deps.autorun(function() {
 		var users = Users.find({
-			online: true
+				'status.online': true,
+				'status.idle': { $exists: false }
 		}).fetch();
-
+		debugger;
 		_.each(markers, function(marker) {
 			marker.setMap(null);
 		});

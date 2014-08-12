@@ -1,16 +1,17 @@
 {
-	"packages": {
-		"streams": {},
-		"bower": {}
-	},
-	"bower": {
-		"vex": {
-			"version": "2.2.1",
-			"additionalFiles": [
-				"js/vex.combined.min.js",
-				"css/vex.css",
-				"css/vex-theme-default.css"
-			]
-		}
-	}
+  "packages": {
+    "streams": {},
+    "bower": {},
+    "user-status": {}
+  },
+  "bower": {
+    "vex": {
+      "version": "2.2.1",
+      "additionalFiles": [
+        "js/vex.combined.min.js",
+        "css/vex.css",
+        "css/vex-theme-default.css"
+      ]
+    }
+  }
 }

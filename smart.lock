@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "streams": {},
-      "bower": {}
+      "bower": {},
+      "user-status": {}
     },
     "packages": {
       "streams": {
@@ -15,6 +16,16 @@
         "git": "https://github.com/mquandalle/meteor-bower.git",
         "tag": "v0.1.10",
         "commit": "ba0081a9f2919918f48f6b2f9e2f33729c79aecc"
+      },
+      "user-status": {
+        "git": "https://github.com/mizzao/meteor-user-status.git",
+        "tag": "v0.6.0",
+        "commit": "dba80d742522ac104f2155f1db852922e4249f96"
+      },
+      "timesync": {
+        "git": "https://github.com/mizzao/meteor-timesync.git",
+        "tag": "v0.2.1",
+        "commit": "fa4abd511f4e32a3c5d22795ce2c1e8369428fac"
       }
     }
   }
