@@ -3,7 +3,7 @@
 var Gmap = function() {
 
 	var self = this,
-		markers = [],
+		markers = {},
 		mapOptions = {
 			center: new google.maps.LatLng(32.0833, 34.8000),
 			zoom: 15,
@@ -12,7 +12,7 @@ var Gmap = function() {
 			streetViewControl: false
 		},
 		panorama,
-		infowindow;
+		infowindow = new google.maps.InfoWindow();
 
 	self.map = new google.maps.Map(document.getElementById("map-canvas"));
 	panorama = self.map.getStreetView();
@@ -31,25 +31,19 @@ var Gmap = function() {
 		self.map.setOptions(mapOptions);
 	});
 
-	Deps.autorun(function() {
-		var users = Users.find({
-				'status.online': true,
-				'status.idle': { $exists: false }
-		}).fetch();
-		debugger;
-		_.each(markers, function(marker) {
-			marker.setMap(null);
-		});
-		markers = [];
 
-		infowindow = new google.maps.InfoWindow();
-
-		_.each(users, function(user) {
+	Users.find({
+		'status.online': true,
+		'status.idle': {
+			$exists: false
+		}
+	}).observe({
+		added: function(user) {
 			var markerOptions = {
-				position: user.position,
-				map: self.map,
-				title: user.profile.name
-			},
+					position: user.position,
+					map: self.map,
+					title: user.profile.name
+				},
 				marker;
 
 			if (user._id === Meteor.userId()) {
@@ -57,19 +51,23 @@ var Gmap = function() {
 			}
 
 			marker = new google.maps.Marker(markerOptions);
-
-			google.maps.event.addListener(marker, 'click', (function(user) {
-				return function() {
+			markers[user._id] = marker;
+			google.maps.event.addListener(marker, 'click', function() {
 					var content = UI.renderWithData(Template.infowindow, user),
 						wraper = $('<div></div').attr('id', 'infowindow').get(0);
 					UI.insert(content, wraper);
 					infowindow.setContent(wraper);
 					infowindow.open(panorama.getVisible() ? panorama : self.map, this);
-				};
-			}(user)));
-
-			markers.push(marker);
-		});
+			});
+		},
+		changed: function(user) {
+			var marker = markers[user._id];
+			marker.setPosition(user.position);
+		},
+		removed: function(user) {
+			var marker = markers[user._id];
+			marker.setMap(null);
+		},
 	});
 };
 

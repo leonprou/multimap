@@ -1,20 +1,19 @@
 Template.infowindow.helpers({
 	isLoggedUser: function() {
-		debugger;
 		return this._id === Meteor.userId();
 	}
 });
 
 Template.infowindow.events({
-	'click #infowindow-center': function(event) {
+	'click #infowindow-center': function() {
 		gmap.map.panTo(this.position);
 	},
-	'click #infowindow-streetView': function(event) {
+	'click #infowindow-streetView': function() {
 		var panorama = gmap.map.getStreetView();
 		panorama.setPosition(this.position);
-		panorama.setVisible(true)
+		panorama.setVisible(true);
 	},
-	'click #infowindow-message': function(event) {
+	'click #infowindow-message': function() {
 		var self = this;
 		vex.dialog.prompt({
 			message: 'Write your message',
