@@ -1,4 +1,5 @@
 /*global google:false*/
+/*jslint todo: true */
 
 var Gmap = function() {
 
@@ -30,7 +31,6 @@ var Gmap = function() {
 		mapOptions.streetViewControl = !!Meteor.user();
 		self.map.setOptions(mapOptions);
 	});
-
 
 	Users.find({
 		'status.online': true,
@@ -67,6 +67,9 @@ var Gmap = function() {
 		removed: function(user) {
 			var marker = markers[user._id];
 			marker.setMap(null);
+			google.maps.event.clearInstanceListeners(marker);
+			// TODO: rethink the delete process and markers implementation
+			markers[user._id] = null;
 		},
 	});
 };
