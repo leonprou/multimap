@@ -13,8 +13,32 @@ var Gmap = function() {
 		panorama,
 		infowindow = new google.maps.InfoWindow();
 
+	function createMapControllers() {
+		var loginContent = UI.renderWithData(Template.loginButtons, {
+				align: "right"
+			}),
+			controlDiv = document.createElement('div');
+
+		// Set CSS for the control border.
+		controlDiv.style.padding = '1px';
+		controlDiv.style.backgroundColor = 'white';
+		controlDiv.style.borderStyle = 'solid';
+		controlDiv.style.borderWidth = '1px';
+		controlDiv.style.fontSize = '15px';
+		controlDiv.style.cursor = 'pointer';
+		controlDiv.style.textAlign = 'center';
+
+		UI.insert(loginContent, controlDiv);
+
+		controlDiv.index = 1;
+		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+	}
+
 	self.map = new google.maps.Map(document.getElementById("map-canvas"));
 	panorama = self.map.getStreetView();
+
+	// Adding the log in contoller to map
+	createMapControllers();
 
 	google.maps.event.addListener(panorama, 'position_changed', function() {
 		var positon = {
@@ -34,9 +58,8 @@ var Gmap = function() {
 				self.map.setCenter(user.position);
 				c.stop();
 			}
-		}
-		else {
-			self.map.setOptions(mapOptions);			
+		} else {
+			self.map.setOptions(mapOptions);
 		}
 	});
 
