@@ -8,9 +8,7 @@ var Gmap = function() {
 		mapOptions = {
 			center: new google.maps.LatLng(32.0833, 34.8000),
 			zoom: 15,
-			zoomControl: false,
-			panControl: false,
-			streetViewControl: false
+			disableDefaultUI: true
 		},
 		panorama,
 		infowindow = new google.maps.InfoWindow();
@@ -27,9 +25,19 @@ var Gmap = function() {
 	});
 
 
-	Deps.autorun(function() {
-		mapOptions.streetViewControl = !!Meteor.user();
-		self.map.setOptions(mapOptions);
+	Deps.autorun(function(c) {
+		var user = Meteor.user();
+		if (user) {
+			mapOptions.streetViewControl = true;
+			self.map.setOptions(mapOptions);
+			if (user.position) {
+				self.map.setCenter(user.position);
+				c.stop();
+			}
+		}
+		else {
+			self.map.setOptions(mapOptions);			
+		}
 	});
 
 	Users.find({
@@ -53,11 +61,11 @@ var Gmap = function() {
 			marker = new google.maps.Marker(markerOptions);
 			markers[user._id] = marker;
 			google.maps.event.addListener(marker, 'click', function() {
-					var content = UI.renderWithData(Template.infowindow, user),
-						wraper = $('<div></div').attr('id', 'infowindow').get(0);
-					UI.insert(content, wraper);
-					infowindow.setContent(wraper);
-					infowindow.open(panorama.getVisible() ? panorama : self.map, this);
+				var content = UI.renderWithData(Template.infowindow, user),
+					wraper = $('<div></div').attr('id', 'infowindow').get(0);
+				UI.insert(content, wraper);
+				infowindow.setContent(wraper);
+				infowindow.open(panorama.getVisible() ? panorama : self.map, this);
 			});
 		},
 		changed: function(user) {
@@ -68,16 +76,8 @@ var Gmap = function() {
 			var marker = markers[user._id];
 			marker.setMap(null);
 			google.maps.event.clearInstanceListeners(marker);
-			// TODO: rethink the delete process and markers implementation
+			// TODO: rethink the delete process of markers
 			markers[user._id] = null;
 		},
 	});
-};
-
-Gmap.prototype.panTo = function() {
-	gmap.map.panTo(this.position);
-};
-
-Gmap.prototype.streetView = function() {
-	window.alert('street View');
 };
