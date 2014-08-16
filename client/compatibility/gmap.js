@@ -15,29 +15,23 @@ var Gmap = function() {
 
 	function createMapControllers() {
 		var loginContent = UI.renderWithData(Template.loginButtons, {
-				align: "right"
+				align: 'right'
 			}),
-			controlDiv = document.createElement('div');
+			userContent= UI.render(Template.usersPanel),
+			loginControl = $('<div></div>').addClass('map-panel').addClass('on-top')[0],
+			usersControl = $('<div></div>')[0];
 
-		// Set CSS for the control border.
-		controlDiv.style.padding = '1px';
-		controlDiv.style.backgroundColor = 'white';
-		controlDiv.style.borderStyle = 'solid';
-		controlDiv.style.borderWidth = '1px';
-		controlDiv.style.fontSize = '15px';
-		controlDiv.style.cursor = 'pointer';
-		controlDiv.style.textAlign = 'center';
+		UI.insert(loginContent, loginControl);
+		UI.insert(userContent, usersControl);
 
-		UI.insert(loginContent, controlDiv);
-
-		controlDiv.index = 1;
-		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginControl);
+		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(usersControl);
 	}
 
-	self.map = new google.maps.Map(document.getElementById("map-canvas"));
+	self.map = new google.maps.Map(document.getElementById('map-canvas'));
 	panorama = self.map.getStreetView();
 
-	// Adding the log in contoller to map
+	// Adding the custom map controllers
 	createMapControllers();
 
 	google.maps.event.addListener(panorama, 'position_changed', function() {

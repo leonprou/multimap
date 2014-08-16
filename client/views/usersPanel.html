@@ -1,0 +1,14 @@
+<template name="usersPanel">
+	<div id="user-panel" class="map-panel">
+		<strong >users</strong>
+	</div>
+	{{#if usersVisible}}
+		<div  class="user-panel">
+			{{#each users}}
+				<div>
+					<strong>{{profile.name}}</strong>
+				</div>
+			{{/each}}
+		</div>
+	{{/if}}
+</template>

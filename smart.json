@@ -2,7 +2,8 @@
   "packages": {
     "streams": {},
     "bower": {},
-    "user-status": {}
+    "user-status": {},
+    "bootstrap-3": {}
   },
   "bower": {
     "vex": {

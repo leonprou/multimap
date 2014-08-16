@@ -23,5 +23,4 @@ Deps.autorun(function(c) {
 		
 		c.stop();
 	} catch(ignore) {}
-
 });
