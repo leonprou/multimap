@@ -15,5 +15,8 @@ Template.usersPanel.helpers({
 Template.usersPanel.events({
 	'click #user-panel' : function() {
 		Session.set('usersPanel', !Session.get('usersPanel'));
+	},
+	'click .users-online div' : function() {
+		gmap.map.panTo(this.position);
 	}
 });

@@ -1,1 +1,2 @@
-Meteor.subscribe('users');
+/*global UserSub:true*/
+UserSub = Meteor.subscribe('users');

@@ -1,14 +1,19 @@
 <template name="usersPanel">
-	<div id="user-panel" class="map-panel">
-		<strong >users</strong>
-	</div>
 	{{#if usersVisible}}
-		<div  class="user-panel">
+		<div class="users-online unselectable">
 			{{#each users}}
-				<div>
-					<strong>{{profile.name}}</strong>
-				</div>
+				{{>user}}
 			{{/each}}
 		</div>
 	{{/if}}
+	<div id="user-panel" class="map-panel bottom-panel unselectable">
+		<strong >users online</strong>
+	</div>
+</template>
+
+
+<template name="user">
+	<div>
+		<strong>{{profile.name}}</strong>
+	</div>
 </template>

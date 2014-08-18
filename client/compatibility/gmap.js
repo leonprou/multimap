@@ -1,10 +1,9 @@
-/*global google:false*/
+/*global google:false, UserSub:false*/
 /*jslint todo: true */
 
 var Gmap = function() {
 
 	var self = this,
-		markers = {},
 		mapOptions = {
 			center: new google.maps.LatLng(32.0833, 34.8000),
 			zoom: 15,
@@ -18,17 +17,17 @@ var Gmap = function() {
 				align: 'right'
 			}),
 			userContent= UI.render(Template.usersPanel),
-			loginControl = $('<div></div>').addClass('map-panel').addClass('on-top')[0],
+			loginControl = $('<div></div>').addClass('map-panel top-panel')[0],
 			usersControl = $('<div></div>')[0];
 
 		UI.insert(loginContent, loginControl);
 		UI.insert(userContent, usersControl);
-
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginControl);
-		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(usersControl);
+		self.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(usersControl);
 	}
 
 	self.map = new google.maps.Map(document.getElementById('map-canvas'));
+	self._markers = [];
 	panorama = self.map.getStreetView();
 
 	// Adding the custom map controllers
@@ -44,14 +43,18 @@ var Gmap = function() {
 
 
 	Deps.autorun(function(c) {
+		if (!UserSub.ready()) {
+			return;
+		}
+
 		var user = Meteor.user();
 		if (user) {
 			mapOptions.streetViewControl = true;
 			self.map.setOptions(mapOptions);
 			if (user.position) {
 				self.map.setCenter(user.position);
-				c.stop();
 			}
+			c.stop();
 		} else {
 			self.map.setOptions(mapOptions);
 		}
@@ -76,7 +79,7 @@ var Gmap = function() {
 			}
 
 			marker = new google.maps.Marker(markerOptions);
-			markers[user._id] = marker;
+			self._markers[user._id] = marker;
 			google.maps.event.addListener(marker, 'click', function() {
 				var content = UI.renderWithData(Template.infowindow, user),
 					wraper = $('<div></div').attr('id', 'infowindow').get(0);
@@ -86,15 +89,15 @@ var Gmap = function() {
 			});
 		},
 		changed: function(user) {
-			var marker = markers[user._id];
+			var marker = self._markers[user._id];
 			marker.setPosition(user.position);
 		},
 		removed: function(user) {
-			var marker = markers[user._id];
+			var marker = self._markers[user._id];
 			marker.setMap(null);
 			google.maps.event.clearInstanceListeners(marker);
 			// TODO: rethink the delete process of markers
-			markers[user._id] = null;
+			self._markers[user._id] = null;
 		},
 	});
 };
