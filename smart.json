@@ -11,7 +11,8 @@
       "additionalFiles": [
         "js/vex.combined.min.js",
         "css/vex.css",
-        "css/vex-theme-default.css"
+        "css/vex-theme-default.css",
+        "css/vex-theme-wireframe.css"
       ]
     }
   }

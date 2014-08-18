@@ -13,10 +13,16 @@ Template.usersPanel.helpers({
 });
 
 Template.usersPanel.events({
-	'click #user-panel' : function() {
+	'click #user-panel': function() {
 		Session.set('usersPanel', !Session.get('usersPanel'));
 	},
-	'click .users-online div' : function() {
-		gmap.map.panTo(this.position);
+	'click .users-online div': function() {
+		var content = UI.renderWithData(Template.infowindow, this),
+			wraper = $('<div></div').get(0);
+		UI.insert(content, wraper);
+		vex.open({
+			content: wraper,
+			className: 'vex-theme-wireframe'
+		});
 	}
 });

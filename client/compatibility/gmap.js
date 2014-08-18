@@ -13,16 +13,22 @@ var Gmap = function() {
 		infowindow = new google.maps.InfoWindow();
 
 	function createMapControllers() {
+		debugger;
 		var loginContent = UI.renderWithData(Template.loginButtons, {
 				align: 'right'
 			}),
 			userContent= UI.render(Template.usersPanel),
-			loginControl = $('<div></div>').addClass('map-panel top-panel')[0],
-			usersControl = $('<div></div>')[0];
+			aboutContent = UI.render(Template.about),
+			loginControl = $('<div></div>').addClass('map-panel top-panel on-top')[0],
+			usersControl = $('<div></div>')[0],
+			aboutControl = $('<div></div>')[0];
 
 		UI.insert(loginContent, loginControl);
 		UI.insert(userContent, usersControl);
+		UI.insert(aboutContent, aboutControl);
+
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginControl);
+		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(aboutControl);
 		self.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(usersControl);
 	}
 

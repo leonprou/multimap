@@ -9,15 +9,15 @@ UI.registerHelper('username', function() {
 });
 
 UI.body.rendered = function() {
-	vex.defaultOptions.className = 'vex-theme-default';
+	vex.defaultOptions.className = 'vex-theme-wireframe';
 	gmap = new Gmap();
 };
 
 Deps.autorun(function(c) {
 	try {
 		UserStatus.startMonitor({
-			threshold: 1000,
-			interval: 1000,
+			threshold: 15 * 60 * 1000,
+			interval: 60 * 1000,
 			idleOnBlur: false
 		});
 		
