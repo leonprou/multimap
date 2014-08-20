@@ -14,6 +14,7 @@
         "css/vex-theme-default.css",
         "css/vex-theme-wireframe.css"
       ]
-    }
+    },
+    "intro.js": "0.9.0"
   }
 }
