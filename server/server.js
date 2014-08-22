@@ -1,9 +1,6 @@
 Meteor.methods({
 	updateLocation: function(position) {
-		Users.update({_id :  Meteor.userId()}, {$set: {position: position, online: true}});
-	},
-	removeLocation: function() {
-		Users.update({_id : Meteor.userId()}, {$set: {online: false}});
+		Users.update({_id :  Meteor.userId()}, {$set: {position: position}});
 	}
 });
 
@@ -12,11 +9,11 @@ Accounts.onLogin(function(attemptInfo) {
 });
 
 Accounts.onCreateUser(function(options, user) {
-	if (options.profile)
+	if (options.profile) {
 	    user.profile = options.profile;
+	}
 	else {
 		user.profile = { name: user.username };
-		// delete user.username;
 	}
 	return user;
 });
