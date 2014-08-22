@@ -4,7 +4,8 @@ Template.about.events({
 			wraper = $('<div></div').get(0);
 		UI.insert(content, wraper);
 		vex.open({
-			content: wraper
+			content: wraper,
+			contentClassName: 'about'
 		});
 	}
 });

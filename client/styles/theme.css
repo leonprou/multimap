@@ -52,3 +52,7 @@ body {
 .on-top {
 	z-index: 2 !important;
 }
+
+.about {
+	width: 600px !important;
+}

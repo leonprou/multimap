@@ -1,6 +1,6 @@
 Template.infowindow.helpers({
-	isLoggedUser: function() {
-		return this._id === Meteor.userId();
+	authorized: function() {
+		return !!Meteor.userId();
 	}
 });
 

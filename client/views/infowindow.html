@@ -1,15 +1,23 @@
 <template name="infowindow">
-	{{#if isLoggedUser}}
+	{{#if currentUser}}
 		<div>
 			<strong>{{profile.name}} (you)</strong>
 		</div>
 		<button id="infowindow-streetView">street view</button>
 		<button id="infowindow-center">center</button>
 	{{else}}
+		{{#if authorized}}
 		<div>
 			<strong>{{profile.name}}</strong>
 		</div>
 		<button id="infowindow-message">message</button>
 		<button id="infowindow-center">center</button>
+		{{else}}
+		<div>
+			<strong>{{profile.name}}</strong>
+		</div>
+		<button id="infowindow-center">center</button>
+		<br> Sign in for more!
+		{{/if}}
 	{{/if}}
 </template>
