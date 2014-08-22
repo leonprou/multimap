@@ -13,21 +13,25 @@ var Gmap = function() {
 		infowindow = new google.maps.InfoWindow();
 
 	function createMapControllers() {
-		debugger;
 		var loginContent = UI.renderWithData(Template.loginButtons, {
 				align: 'right'
 			}),
 			userContent= UI.render(Template.usersPanel),
 			aboutContent = UI.render(Template.about),
-			loginControl = $('<div></div>').addClass('map-panel top-panel on-top')[0],
+			// tourContent = UI.render(Template.tour),
+			loginControl = $('<div data-intro="the project called multimap"></div>').addClass('map-panel top-panel on-top')[0],
 			usersControl = $('<div></div>')[0],
 			aboutControl = $('<div></div>')[0];
+			// tourControl = $('<div></div')[0];
 
 		UI.insert(loginContent, loginControl);
 		UI.insert(userContent, usersControl);
 		UI.insert(aboutContent, aboutControl);
+		// UI.insert(tourContent, tourControl);
+
 
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginControl);
+		// self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(tourControl);
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(aboutControl);
 		self.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(usersControl);
 	}
@@ -56,10 +60,10 @@ var Gmap = function() {
 		var user = Meteor.user();
 		if (user) {
 			mapOptions.streetViewControl = true;
-			self.map.setOptions(mapOptions);
 			if (user.position) {
-				self.map.setCenter(user.position);
+				mapOptions.center =  new google.maps.LatLng(user.position.lat, user.position.lng);
 			}
+			self.map.setOptions(mapOptions);
 			c.stop();
 		} else {
 			self.map.setOptions(mapOptions);
