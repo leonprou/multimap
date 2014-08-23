@@ -5,7 +5,8 @@
       "streams": {},
       "bower": {},
       "user-status": {},
-      "bootstrap-3": {}
+      "bootstrap-3": {},
+      "GAnalytics": {}
     },
     "packages": {
       "streams": {
@@ -27,6 +28,11 @@
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
         "tag": "v3.2.0-1",
         "commit": "17a63902fc6cf1096c5289d963c66cf28b474727"
+      },
+      "GAnalytics": {
+        "git": "https://github.com/datariot/meteor-ganalytics.git",
+        "tag": "v0.2.0",
+        "commit": "2d5e48d5cc4c2f88edd40c0b2341d378bd4a702b"
       },
       "timesync": {
         "git": "https://github.com/mizzao/meteor-timesync.git",
