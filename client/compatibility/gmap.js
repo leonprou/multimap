@@ -16,13 +16,13 @@ var Gmap = function() {
 		var loginContent = UI.renderWithData(Template.loginButtons, {
 				align: 'right'
 			}),
-			userContent= UI.render(Template.usersPanel),
+			userContent = UI.render(Template.usersPanel),
 			aboutContent = UI.render(Template.about),
 			// tourContent = UI.render(Template.tour),
 			loginControl = $('<div data-intro="the project called multimap"></div>').addClass('map-panel top-panel on-top')[0],
 			usersControl = $('<div></div>')[0],
 			aboutControl = $('<div></div>')[0];
-			// tourControl = $('<div></div')[0];
+		// tourControl = $('<div></div')[0];
 
 		UI.insert(loginContent, loginControl);
 		UI.insert(userContent, usersControl);
@@ -58,15 +58,23 @@ var Gmap = function() {
 		}
 
 		var user = Meteor.user();
+
 		if (user) {
 			mapOptions.streetViewControl = true;
 			if (user.position) {
-				mapOptions.center =  new google.maps.LatLng(user.position.lat, user.position.lng);
+				mapOptions.center = new google.maps.LatLng(user.position.lat, user.position.lng);
 			}
 			self.map.setOptions(mapOptions);
 			c.stop();
 		} else {
 			self.map.setOptions(mapOptions);
+		}
+	});
+
+	Deps.autorun(function() {
+		var marker = self._markers[Meteor.userId()];
+		if (marker) {
+			marker.setIcon('/images/markers/darkgreen_MarkerA.png');
 		}
 	});
 
@@ -110,4 +118,7 @@ var Gmap = function() {
 			self._markers[user._id] = null;
 		},
 	});
+
+
+
 };
