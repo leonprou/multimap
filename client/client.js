@@ -1,4 +1,4 @@
-/*global Gmap:true, UserStatus:false*/
+/*global Gmap:true, UserStatus:false, GoogleMaps:false */
 
 Accounts.ui.config({
 	passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
@@ -10,7 +10,15 @@ UI.registerHelper('username', function() {
 
 UI.body.rendered = function() {
 	vex.defaultOptions.className = 'vex-theme-wireframe';
-	gmap = new Gmap();
+};
+
+
+Template.home.rendered=function(){
+  this.autorun(_.bind(function(){
+    if(GoogleMaps.ready()){
+    	gmap = new Gmap();
+    }
+  },this));
 };
 
 Deps.autorun(function(c) {

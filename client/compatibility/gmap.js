@@ -31,12 +31,11 @@ var Gmap = function() {
 
 
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginControl);
-		// self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(tourControl);
 		self.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(aboutControl);
 		self.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(usersControl);
 	}
 
-	self.map = new google.maps.Map(document.getElementById('map-canvas'));
+	self.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	self._markers = [];
 	panorama = self.map.getStreetView();
 
