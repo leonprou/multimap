@@ -10,6 +10,7 @@ UI.registerHelper('username', function() {
 
 UI.body.rendered = function() {
 	vex.defaultOptions.className = 'vex-theme-wireframe';
+	GAnalytics.pageview();
 };
 
 

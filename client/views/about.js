@@ -7,5 +7,6 @@ Template.about.events({
 			content: wraper,
 			contentClassName: 'about'
 		});
+		GAnalytics.event("about");
 	}
 });

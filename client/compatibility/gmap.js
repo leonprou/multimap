@@ -58,6 +58,7 @@ var Gmap = function() {
 		var user = Meteor.user();
 
 		if (user) {
+			GAnalytics.event('login');
 			mapOptions.streetViewControl = true;
 			if (user.position) {
 				mapOptions.center = new google.maps.LatLng(user.position.lat, user.position.lng);
@@ -97,6 +98,7 @@ var Gmap = function() {
 			marker = new google.maps.Marker(markerOptions);
 			self._markers[user._id] = marker;
 			google.maps.event.addListener(marker, 'click', function() {
+				GAnalytics.event('infowindow');
 				var content = UI.renderWithData(Template.infowindow, user),
 					wraper = $('<div></div').attr('id', 'infowindow').get(0);
 				UI.insert(content, wraper);

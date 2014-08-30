@@ -15,6 +15,7 @@ Template.usersPanel.helpers({
 Template.usersPanel.events({
 	'click #user-panel': function() {
 		Session.set('usersPanel', !Session.get('usersPanel'));
+		GAnalytics.event('users');
 	},
 	'click .users-online div': function() {
 		var content = UI.renderWithData(Template.infowindow, this),
@@ -24,5 +25,7 @@ Template.usersPanel.events({
 			content: wraper,
 			className: 'vex-theme-wireframe'
 		});
+		GAnalytics.event('users', 'specific');
+
 	}
 });
