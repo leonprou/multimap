@@ -3,7 +3,8 @@
     "streams": {},
     "bower": {},
     "user-status": {},
-    "bootstrap-3": {}
+    "bootstrap-3": {},
+    "GAnalytics": {}
   },
   "bower": {
     "vex": {
